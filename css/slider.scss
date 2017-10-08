@@ -59,12 +59,15 @@
   position: absolute; left: 0; bottom: 0;
   display: none;
   width: 100%;
-  padding: 5px 5px 10px 5px;
+  padding: 13px 5px 22px 5px;
   color: white;
   background-color: rgba(0,0,0,0.5);
   text-align: center;
   overflow: hidden;
   font-size: 30px;
+  > span {
+    margin: 0 10px 0 10px;
+  }
   &, *{
     vertical-align: middle;
   }

@@ -5,7 +5,8 @@ function slider(slider) {
     // Slides transition time when next btn, previous btn or pager dots are clicked.
     var TRANS_TIME = slider.TRANS_TIME = 200;
     var slideshow = slider.slideshow = $('#' + slider.id);
-    var banEff = slider.banEffect, pager = slider.pager, arrows = slider.arrows;
+    var banner = slider.banner, interval = slider.interval, duration = slider.duration;
+    var banEff = slider.banEffect, banDuration = slider.banDuration, pager = slider.pager, arrows = slider.arrows;
     slider.ACT_COLOR = "#a8a5a5"; // Active dot color
     slider.COLOR = "white"; // Passive color
     slideshow.find('> div:parent').addClass("slide"); // Adding class slide for each slide.
@@ -16,23 +17,22 @@ function slider(slider) {
     slider.zBack = false;
     slider.page = false;
 
-    // Default parameters value
-    if(typeof(slider.interval) === "undefined") // Time slide stay.
+    if(!interval) // Default parameters value
         slider.interval = 3500;
-    if(typeof(slider.duration) === "undefined") // Transition time between each slide.
+    if(!duration) // Transition time between each slide.
         slider.duration = 1000;
-    if(typeof(slider.banDuration) === "undefined") // Banner transition time of each slide.
+    if(!banDuration) // Banner transition time of each slide.
         slider.banDuration = 1000;
-    if(typeof(slider.banner) === "undefined")
-        slider.banner = true;
-    if(typeof(pager) === "undefined")
+    if(typeof(banner) === "undefined") // Bottom banner showed by default.
+        banner = slider.banner = true;
+    if(typeof(pager) === "undefined") // Pager showed by default.
         pager = true;
-    if(typeof(arrows) === "undefined")
+    if(typeof(arrows) === "undefined") // Arrows showed by default.
         arrows = true;
 
-    if((banEff === "" || banEff === "none" || typeof(banEff) === "undefined") && slider.banner)
+    if(!banEff && banner)
         slideshow.find('.banner').show();
-    else if(!slider.banner)
+    else if(!banner)
         slideshow.find('.banner').hide();
 
     // Previous, next btn construction
@@ -53,8 +53,8 @@ function slider(slider) {
 
     runSlides(slider);
 
-    // Stop slider on hover event if we have arrows, pager or both visible.
-    if(slider.arrows !== false && slider.pager !== false) {
+    // Stop slider on hover event if we have arrows, pager or both visible, with hoverStop parameter set to true.
+    if((arrows || pager) && slider.hoverStop) {
         slideshow.hover(function () {
             clearInterval(run);
             slideshow.find('.ssBtn-left').css("background",
@@ -71,7 +71,7 @@ function slider(slider) {
 
     // Next btn click event
     slideshow.find('.ssBtn-right').click(function() {
-        if(typeof(posCallback) === "undefined" || posCallback <= 0)
+        if(!posCallback || posCallback <= 0)
             slider.j = count;
         else
             slider.j = posCallback;
@@ -83,7 +83,7 @@ function slider(slider) {
 
     // Previous btn click event
     slideshow.find('.ssBtn-left').click(function() {
-        if(typeof(posCallback) === "undefined" || posCallback <= 0)
+        if(!posCallback || posCallback <= 0)
             posCallback = count;
         else if(posCallback > count)
             posCallback = 1;
@@ -95,7 +95,7 @@ function slider(slider) {
 
     // Pager dot click event
     slideshow.find('.pagerDot').click(function() {
-        if(typeof(posCallback) === "undefined" || posCallback <= 0)
+        if(!posCallback || posCallback <= 0)
             posCallback = count;
 
         clickPagerDot($(this).index() + 1, slider);
@@ -129,19 +129,21 @@ function pagerConst(slider) {
     var ACT_COLOR = "#a8a5a5"; // Active dot color
     var COLOR = "white";
     var slideshow = slider.slideshow;
+    var pager = $('<nav/>');
     var count = slider.count;
-
     var spaces = "&nbsp;&nbsp;";
 
     for(var i = 0; i < count; i++) {
         var dot = $('<i/>').attr({"role": "button", "class": "fa fa-circle pagerDot", "aria-hidden": "true"});
-        slideshow.find('nav').append(dot).css("color", COLOR);
+        //slideshow.find('nav').append(dot).css("color", COLOR);
+        pager.append(dot).css("color", COLOR);
 
         if(i < count - 1)
-            slideshow.find('nav').append(spaces).css("color", COLOR);
+            pager.append(spaces).css("color", COLOR);
 
     }
 
+    slideshow.append(pager);
     $('.slider nav i:first').css("color", ACT_COLOR);
 }
 
@@ -393,7 +395,7 @@ function defineEffect(slider) {
                 effect = 'perspectiveUp';
                 break;
             default:
-                if(effect === "" || typeof(effect) === "undefined" || effect === "slideLeft")
+                if(!effect || effect === "slideLeft")
                     effect = 'slideRight';
                 break;
         }
@@ -554,10 +556,10 @@ function defineBanEffect(slider) {
 
     switch(slider.banEffect) {
         case 'slideLeftFade':
-            banner.velocity('transition.slideLeftBigIn', banDuration);
+            banner.velocity('transition.slideRightBigIn', banDuration);
             break;
         case 'slideRightFade':
-            banner.velocity('transition.slideRightBigIn', banDuration);
+            banner.velocity('transition.slideLeftBigIn', banDuration);
             break;
         case 'slideUpFade':
             banner.velocity('transition.slideUpBigIn', banDuration);
