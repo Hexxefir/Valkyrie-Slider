@@ -57,7 +57,7 @@ banners. If you want insert more divs for more images or text, insert them befor
 inserted as first child in a slide.**
 
 In .js file
-...
+```
 $(window).on("load", function() { // .ready() is deprecated in jQuery 3, this is the right syntax now.
     slider({
         id: "carousel",
@@ -72,7 +72,7 @@ $(window).on("load", function() { // .ready() is deprecated in jQuery 3, this is
         hoverStop: true // Default false
     });
 });
-...
+```
 The only parameter required is id. Default value will be apply for all other missing parameters.
 
 ## Parameters
