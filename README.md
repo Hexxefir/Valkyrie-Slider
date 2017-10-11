@@ -5,7 +5,7 @@ Slider powered by velocity.js motion engine for you websites. Very customizable 
 * jQuery 3.2.1
 * Velocity 1.5.0
 * Velocity UI 5.2.0
-* Font Awesome 4.7.0
+* Font Awesome 4.7.0 <br/>
 All of these come with Valkyrie-Slider package, but you can delete them and use CDN links too.
 
 ## Get Started
