@@ -9,7 +9,7 @@ Slider powered by velocity.js motion engine for you websites. Very customizable 
 All of these come with Valkyrie-Slider package, but you can delete them and use CDN links too.
 
 ## Get Started
-In .html file
+### In .html file
 ```
 <div id="carousel" class="slider">
         <div> // Slide div 5
@@ -56,7 +56,7 @@ In .html file
 banners. If you want insert more divs for more images or text, insert them before. **The background image or biggest one must be 
 inserted as first child in a slide.**
 
-In .js file
+### In .js file
 ```
 $(window).on("load", function() { // .ready() is deprecated in jQuery 3, this is the right syntax now.
     slider({
