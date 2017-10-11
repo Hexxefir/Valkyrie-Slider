@@ -10,7 +10,7 @@ All of these come with Valkyrie-Slider package, but you can delete them and use 
 
 ## Get Started
 In .html file
-...
+```
 <div id="carousel" class="slider">
         <div> // Slide div 5
             <img src="./img/Slideshow/slide5.jpg"/>
@@ -51,7 +51,7 @@ In .html file
             </div>
         </div>
     </div>
-...
+```
 **Class slider and a id are required.** The order of slides start by last one as comments show you. Last div inside each slide are 
 banners. If you want insert more divs for more images or text, insert them before. **The background image or biggest one must be 
 inserted as first child in a slide.**
